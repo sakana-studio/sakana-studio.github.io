@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sakana Studio, studio indépendant de jeux vidéo</title>
+<meta name="description" content="Sakana Studio est un studio indépendant de jeux vidéo fondé en 2026 à Corbeil-Essonnes. Premier jeu : Night Traumas of Edward (NTOE), un jeu d'horreur psychologique pour PC et Android.">
+<meta property="og:title" content="Sakana Studio">
+<meta property="og:description" content="Studio indépendant de jeux vidéo. Premier jeu : Night Traumas of Edward.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0c1f24">
+<meta name="google-site-verification" content="ChUNId20JCqVaiGhSzCpeMn1CNQ0BjVTyRdR2Vg1INA" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230c1f24'/%3E%3Ctext x='32' y='47' font-size='44' text-anchor='middle' fill='%23e6e1d4' font-family='serif'%3E%E9%AD%9A%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --abyss: #0c1f24;
+    --deep: #11272d;
+    --glyph: #173842;
+    --glyph-sunk: #12303a;
+    --line: #2c4d54;
+    --bone: #e6e1d4;
+    --foam: #96aca8;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --mincho: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif CJK JP", "Noto Serif JP", "MS Mincho", serif;
+    --measure: 38rem;
+    --gutter: clamp(1.5rem, 7vw, 7rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--abyss);
+    color: var(--bone);
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; text-decoration-color: var(--foam); text-underline-offset: 0.2em; }
+  a:hover { text-decoration-color: var(--bone); }
+  a:focus-visible, .button:focus-visible {
+    outline: 2px solid var(--bone);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .skip {
+    position: absolute;
+    left: var(--gutter);
+    top: -4rem;
+    background: var(--bone);
+    color: var(--abyss);
+    padding: 0.5rem 1rem;
+    z-index: 10;
+  }
+  .skip:focus { top: 1rem; }
+
+  /* En-tête */
+  .site-header {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1.75rem var(--gutter);
+  }
+  .wordmark {
+    font-size: 1.125rem;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .site-nav { display: flex; gap: 1.75rem; }
+  .site-nav a { text-decoration: none; color: var(--foam); }
+  .site-nav a:hover { color: var(--bone); }
+
+  /* Ouverture : le nom du studio au-dessus de l'eau, le caractère 魚 sous la surface */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    min-height: 92svh;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 8rem var(--gutter) clamp(4rem, 12vh, 7rem);
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero h1 {
+    margin: 0;
+    font-weight: 400;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+  }
+  .hero p {
+    margin: 1.75rem 0 0;
+    max-width: 31ch;
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    line-height: 1.5;
+    color: var(--foam);
+  }
+
+  .kanji {
+    position: absolute;
+    right: -0.08em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--mincho);
+    font-size: min(80vh, 74vw);
+    line-height: 1;
+    width: 1em;
+    height: 1em;
+    pointer-events: none;
+    user-select: none;
+  }
+  .kanji span {
+    position: absolute;
+    inset: 0;
+    display: block;
+    text-align: center;
+  }
+  .kanji .above {
+    color: var(--glyph);
+    clip-path: inset(0 0 46% 0);
+  }
+  .kanji .below {
+    color: var(--glyph-sunk);
+    clip-path: inset(54% 0 0 0);
+    transform: translateX(0.035em) skewX(-3deg);
+    animation: sway 11s ease-in-out infinite alternate;
+  }
+  /* La ligne d'eau, autour du caractère seulement */
+  .kanji::after {
+    content: "";
+    position: absolute;
+    top: 54%;
+    left: -14%;
+    right: -20%;
+    height: 1px;
+    background: var(--line);
+  }
+  @keyframes sway {
+    from { transform: translateX(0.02em) skewX(-2deg); }
+    to   { transform: translateX(0.06em) skewX(-4deg); }
+  }
+
+  /* Sections */
+  main section {
+    padding: clamp(4rem, 10vw, 7rem) var(--gutter);
+    border-top: 1px solid var(--line);
+  }
+  .inner { max-width: var(--measure); }
+
+  h2 {
+    margin: 0 0 1.25rem;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 1.25rem; }
+
+  .game {
+    display: grid;
+    grid-template-columns: minmax(0, 34rem) minmax(0, 22rem);
+    gap: 2.5rem clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    max-width: 62rem;
+  }
+  .game p { margin-bottom: 2rem; }
+  .facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 2rem;
+    margin: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--line);
+  }
+  .facts dt { color: var(--foam); }
+  .facts dd { margin: 0; }
+
+  .button {
+    display: inline-block;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--bone);
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .button:hover { background: var(--bone); color: var(--abyss); }
+
+  .studio-contact {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 3rem clamp(3rem, 8vw, 7rem);
+    max-width: 62rem;
+  }
+  .studio-contact h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+  .studio-contact p { color: var(--foam); }
+  .studio-contact a { color: var(--bone); }
+
+  /* Mentions légales */
+  .legal { background: var(--deep); }
+  .legal h2 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+  .legal h3 {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+  .legal dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.25rem 1.5rem;
+    margin: 0;
+    font-size: 0.9688rem;
+  }
+  .legal dt { color: var(--foam); }
+  .legal dd { margin: 0; }
+  .legal p { font-size: 0.9688rem; color: var(--foam); }
+
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem var(--gutter) 2.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.9375rem;
+    color: var(--foam);
+  }
+
+  @media (max-width: 40rem) {
+    .site-nav { gap: 1.25rem; }
+    .kanji { top: 38%; font-size: 96vw; right: -0.18em; }
+    .game { grid-template-columns: 1fr; }
+    .facts { padding-left: 0; border-left: 0; }
+    .facts, .legal dl { grid-template-columns: 1fr; gap: 0 0; }
+    .facts dd, .legal dd { margin-bottom: 0.75rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .kanji .below { animation: none; }
+    .button { transition: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#jeux">Aller au contenu</a>
+
+<header class="site-header">
+  <a class="wordmark" href="#">Sakana Studio</a>
+  <nav class="site-nav" aria-label="Navigation principale">
+    <a href="#jeux">Jeux</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="kanji" aria-hidden="true">
+    <span class="above">魚</span>
+    <span class="below">魚</span>
+  </div>
+  <div class="hero-text">
+    <h1>Sakana<br>Studio</h1>
+    <p>Studio indépendant de jeux vidéo, fondé en 2026 à Corbeil&#8209;Essonnes.</p>
+  </div>
+</div>
+
+<main>
+  <section id="jeux" aria-labelledby="titre-ntoe">
+    <div class="game">
+      <div>
+        <h2 id="titre-ntoe">Night Traumas of Edward</h2>
+        <p>Notre premier jeu, NTOE, est un jeu d'horreur psychologique pour ordinateur et mobile.</p>
+        <a class="button" href="https://sakana-studio.itch.io/ntoe">Voir le jeu sur itch.io</a>
+      </div>
+      <dl class="facts">
+        <dt>Genre</dt><dd>Horreur psychologique</dd>
+        <dt>Plateformes</dt><dd>PC et Android</dd>
+        <dt>Sortie</dt><dd>21 octobre 2026</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section aria-label="Le studio et contact">
+    <div class="studio-contact">
+      <div>
+        <h2>Le studio</h2>
+        <p>Sakana Studio conçoit, développe et publie ses propres jeux vidéo pour ordinateur et téléphone, sur des plateformes comme itch.io, Steam, Google Play et l'App Store.</p>
+      </div>
+      <div id="contact">
+        <h2>Contact</h2>
+        <p>Pour une question sur un jeu, un bug ou une demande presse, écrivez à <a href="mailto:sakstudshagalstudio09@hotmail.com">sakstudshagalstudio09@hotmail.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="legal" id="mentions-legales" aria-labelledby="titre-mentions">
+    <div class="inner">
+      <h2 id="titre-mentions">Mentions légales</h2>
+
+      <h3>Éditeur du site</h3>
+      <dl>
+        <dt>Nom</dt><dd>Shayan Galland, entrepreneur individuel (EI)</dd>
+        <dt>Nom commercial</dt><dd>Sakana Studio</dd>
+        <dt>Adresse</dt><dd>10 Cloître Saint-Spire, 91100 Corbeil-Essonnes, France</dd>
+        <dt>Téléphone</dt><dd>07 82 97 46 94</dd>
+        <dt>E-mail</dt><dd><a href="mailto:sakstudshagalstudio09@hotmail.com">sakstudshagalstudio09@hotmail.com</a></dd>
+        <dt>SIREN</dt><dd>131 756 579</dd>
+        <dt>SIRET</dt><dd>131 756 579 00010</dd>
+        <dt>Immatriculation</dt><dd>RCS Évry 131 756 579</dd>
+        <dt>TVA</dt><dd>TVA non applicable, article 293 B du CGI</dd>
+        <dt>Directeur de la publication</dt><dd>Shayan Galland</dd>
+      </dl>
+
+      <h3>Hébergeur</h3>
+      <dl>
+        <dt>Société</dt><dd>GitHub, Inc. (service GitHub Pages)</dd>
+        <dt>Adresse</dt><dd>88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis</dd>
+        <dt>Téléphone</dt><dd>+1 877 448 4820</dd>
+      </dl>
+
+      <h3>Données personnelles</h3>
+      <p>Ce site n'utilise pas de cookies et ne contient aucun outil de mesure d'audience. Si vous nous écrivez par e-mail, votre adresse et votre message servent uniquement à vous répondre.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Sakana Studio</span>
+  <a href="#mentions-legales">Mentions légales</a>
+</footer>
+</body>
+</html>
